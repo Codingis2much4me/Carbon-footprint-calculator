@@ -1,0 +1,100 @@
+/* CSS styles */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+body {
+  background-color: #f5f5f5;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #00BFFF;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.carousel-view {
+  display: flex;
+  align-items: center;
+}
+
+.prev-btn,
+.next-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.next-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.item-list {
+  display: flex;
+  overflow-x: hidden; /* Only display one item at a time */
+}
+
+.item {
+  scroll-snap-align: start;
+  min-width: 100%; /* Ensure only one question is visible at a time */
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: calc(100% - 20px); /* Adjust input width to accommodate for padding */
+  padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #00BFFF;
+}
+
+svg {
+  fill: #00BFFF;
+}
+
+.submit-btn {
+  background-color: #00BFFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0080FF;
+}
