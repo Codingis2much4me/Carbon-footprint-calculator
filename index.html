@@ -1,87 +1,62 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <title> Carbon footprint Calculator </title>
-    <style>
-        body{
-            background-image: url('https://images.pexels.com/photos/11435/landscape-nature-sun-forest-11435.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-            background-size: auto;
-        }
-        p{
-            color: white;
-            text-align: center;
-            font-size: 50px;
-        }
-        .button {
-            position: relative;
-            background-color: #04AA6D;
-            border: none;
-            font-size: 28px;
-            color: #FFFFFF;
-            padding: 20px;
-            width: 200px;
-            text-align: center;
-            -webkit-transition-duration: 0.4s; /* Safari */
-            transition-duration: 0.4s;
-            text-decoration: none;
-            overflow: hidden;
-            cursor: pointer;
-            border-radius: 15px;
-        }
-
-        .button:after {
-            content: "";
-            background: #90EE90;
-            display: block;
-            position: absolute;
-            padding-top: 300%;
-            padding-left: 350%;
-            margin-left: -20px!important;
-            margin-top: -120%;
-            opacity: 0;
-            transition: all 0.8s
-        }
-
-        .button:active:after {
-            padding: 0;
-            margin: 0;
-            opacity: 1;
-            transition: 0s
-        }
-        #radi{
-            background-color: #FFFFFF;
-            color: #084b08;
-            width: 50px;
-            height: 50px;
-            font-size: medium;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        #enter{
-            color:aliceblue;
-            font-size: medium;
-            font-weight: bold;
-
-        }
-        .que{
-            border: rgba(0, 0, 0, 0.432);
-            border-style: solid;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>
-        This is a simple carbon footprint calculator. You can enter the details of your travel and rets of the things
-    </p>
-    <form id="form1" align="center" class = "que">
-        <label for="radius" id="enter">Enter the radius <code>r</code>:</label>
-        <input type="number" id="radi" name="radi1">
-        <br>
-        <br>
-        <button type="button" id="validR"   class = "button">Validate Radius</button>
-        <button id="drawR" type="button"   class = "button">Draw</button>
-        <button type="button" id="computeR"   class = "button">Compute Area/Perimeter</button>
-        <button type="button" id="resetR" class = "button" >Reset the values</button>
-    </form>
-    <script> 
-    </script>
+  <header>
+    <h1>Carbon Footprint Calculator</h1>
+  </header>
+  
+  <div class="container">
+    <div class="carousel-view">
+      <button id="prev-btn" class="prev-btn">
+        <svg viewBox="0 0 512 512" width="20" title="chevron-circle-left">
+          <path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zM142.1 273l135.5 135.5c9.4 9.4 24.6 9.4 33.9 0l17-17c9.4-9.4 9.4-24.6 0-33.9L226.9 256l101.6-101.6c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L142.1 239c-9.4 9.4-9.4 24.6 0 34z" />
+        </svg>
+      </button>
+		 
+      <div id="item-list" class="item-list">
+			
+        <div class="item">
+			  <div class = "question-number" id ="question-number"> Question 1</div>
+          <label for="question1">How many miles do you drive per week?</label>
+          <input type="number" id="question1" placeholder="Enter miles...">
+        </div>
+			
+        <div class="item">
+			  <div class = "question-number" id ="question-number"> Question 2</div>
+          <label for="question2">How many units of electricity do you consume per month?</label>
+          <input type="number" id="question2" placeholder="Enter units...">
+        </div>
+			
+        <div class="item">
+			  <div class = "question-number" id ="question-number"> Question 3</div>
+          <label for="question3">How many flights do you take per year?</label>
+          <input type="number" id="question3" placeholder="Enter number...">
+        </div>
+			
+        <div class="item">
+			  <div class = "question-number" id ="question-number"> Question 4</div>
+          <label for="question4">How many days per week do you eat meat?</label>
+          <input type="number" id="question4" placeholder="Enter days...">
+        </div>
+			
+				
+        <!-- Add more questions here -->
+      </div>
+      <button id="next-btn" class="next-btn">
+        <svg viewBox="0 0 512 512" width="20" title="chevron-circle-right">
+          <path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z" />
+        </svg>
+      </button>
+		 <button id="submit-btn" class="submit-btn">Submit</button>
+    </div>
+  </div>
+
+  <script src="file.js"></script>
 </body>
 </html>
