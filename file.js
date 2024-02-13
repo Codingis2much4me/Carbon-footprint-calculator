@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
   const prev = document.getElementById('prev-btn');
   const next = document.getElementById('next-btn');
-  const submit = document.getElementById('submit-btn'); // Reference to the submit button
+  const submit = document.getElementById('submit-btn');
   const list = document.getElementById('item-list');
   const items = document.querySelectorAll('.item');
-  const questionNumber = document.getElementById('question-number'); // Reference to the question number div
+  const questionNumber = document.getElementById('question-number');
+  const footprint = document.querySelector('.footprint');
+  const summaryTableBody = document.querySelector('#summary-table tbody');
   let currentItemIndex = 0;
 
   // Update question number
@@ -12,42 +14,90 @@ document.addEventListener('DOMContentLoaded', function() {
     questionNumber.textContent = `Question ${currentItemIndex + 1}`;
   }
 
+  // Update footprint width based on percentage of questions answered
+  function updateFootprintWidth() {
+    const percentComplete = (currentItemIndex + 1) / items.length * 100;
+    footprint.style.width = percentComplete + '%';
+  }
+
+  // Function to display message when trying to navigate without filling input
+  function displayInputMessage() {
+    const input = items[currentItemIndex].querySelector('input');
+    input.placeholder = "This field is required!";
+    input.style.borderColor = "red";
+  }
+
   prev.addEventListener('click', () => {
     if (currentItemIndex > 0) {
       currentItemIndex--;
       scrollToCurrentItem();
-      updateQuestionNumber(); // Update question number when moving to previous question
+      updateQuestionNumber();
+      updateFootprintWidth();
+      submit.style.display = 'none';
     }
   });
 
   next.addEventListener('click', () => {
-    if (currentItemIndex < items.length - 1) {
-      currentItemIndex++;
-      scrollToCurrentItem();
-      updateQuestionNumber(); // Update question number when moving to next question
+    const input = items[currentItemIndex].querySelector('input');
+    if (input.value !== '') {
+      if (currentItemIndex < items.length - 1) {
+        currentItemIndex++;
+        scrollToCurrentItem();
+        updateQuestionNumber();
+        updateFootprintWidth();
+        checkSubmitVisibility();
+      } else {
+        checkSubmitVisibility();
+      }
+    } else {
+      displayInputMessage();
     }
   });
 
   submit.addEventListener('click', () => {
-    // Calculate total carbon footprint and display result
     let totalCarbonFootprint = 0;
-    items.forEach((item) => {
+    let allInputsFilled = true;
+
+    // Populate summary table with questions and answers
+    summaryTableBody.innerHTML = ''; // Clear previous entries
+
+    items.forEach((item, index) => {
       const input = item.querySelector('input');
-      totalCarbonFootprint += parseFloat(input.value);
+      if (input.value === '') {
+        allInputsFilled = false;
+        displayInputMessage(index + 1);
+      } else {
+        // Add question and answer to the summary table
+        const question = item.querySelector('label').textContent;
+        const answer = input.value;
+        const row = `<tr><td>${question}</td><td>${answer}</td></tr>`;
+        summaryTableBody.innerHTML += row;
+      }
+      totalCarbonFootprint += parseFloat(input.value) || 0; // Handle empty input
     });
 
-    // Display result
-    alert(`Your total carbon footprint is: ${totalCarbonFootprint}`);
+    if (allInputsFilled) {
+      alert(`Your total carbon footprint is: ${totalCarbonFootprint}`);
+    }
   });
 
   items.forEach((item, index) => {
     const input = item.querySelector('input');
     input.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') {
-        if (currentItemIndex < items.length - 1) {
-          currentItemIndex++;
-          scrollToCurrentItem();
-          updateQuestionNumber(); // Update question number when moving to next question
+        const input = items[currentItemIndex].querySelector('input');
+        if (input.value !== '') {
+          if (currentItemIndex < items.length - 1) {
+            currentItemIndex++;
+            scrollToCurrentItem();
+            updateQuestionNumber();
+            updateFootprintWidth();
+            checkSubmitVisibility();
+          } else {
+            checkSubmitVisibility();
+          }
+        } else {
+          displayInputMessage();
         }
       }
     });
@@ -57,6 +107,15 @@ document.addEventListener('DOMContentLoaded', function() {
     items[currentItemIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  // Initial update of question number
+  function checkSubmitVisibility() {
+    if (currentItemIndex === items.length - 1) {
+      submit.style.display = 'block';
+    } else {
+      submit.style.display = 'none';
+    }
+  }
+
   updateQuestionNumber();
+  updateFootprintWidth();
+  submit.style.display = 'none';
 });
